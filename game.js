@@ -2,6 +2,16 @@ var buttonColors = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
 var level = 0;
+var game=0;
+
+//Text Pulsate
+function pulsate(){
+  while(game<50){
+    $("#level-title").fadeOut(1000).fadeIn(1000);
+    game++;
+  }
+}
+pulsate();
 
 //Sound function
 function playSound(name) {
@@ -41,6 +51,7 @@ function nextSequence() {
 $(document).one("keydown", playgame);
 
 function playgame() {
+  $("#level-title").stop(true).fadeIn();
   nextSequence();
   $(".btn").on("click",userInput);
   function userInput() {
@@ -61,6 +72,8 @@ function playgame() {
     } else {
       playSound("wrong");
       $("#level-title").text("Game Over, Press any key to Restart!");
+      game=0;
+      pulsate();
       $("body").addClass("game-over");
       setTimeout(function() {
         $("body").removeClass("game-over");
